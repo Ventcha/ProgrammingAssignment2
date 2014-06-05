@@ -2,7 +2,8 @@
 ##Pair of functions for Coursera R Programming course: Assignment 2
 ## Created by: Ventcha
 ## Created on 3rd Jun 2014
-## Version: 0.1
+## Updated 5th Jun 2014
+## Version: 0.2 - minor comment modifications
 
 # Purpose
 ## These functions support a simple caching mechanism for matrix inversion calculations, .
@@ -26,7 +27,7 @@
 ## x, now has 4 methods available (2 get/set pairs).
 ## on creation there is an underlying copy of the data (matrix) and Inverse, cached via the usage of <<-
 ## the get methods return this data to the 'caller' and the set methods update the cache data. 
-##Note: The INVERSE data is dependent upon the matrix itself, so setting a new matrix via 'set' 
+## Note: The INVERSE data is dependent upon the matrix itself, so setting a new matrix via 'set' 
 ##  is also seen to nullify any existing Inverse.
 makeCacheMatrix <- function( theMatrix = matrix()) {
     mInverse <<- NULL
@@ -55,8 +56,8 @@ makeCacheMatrix <- function( theMatrix = matrix()) {
 ## and the result will be both set back to the cached-matrix AND returned to the caller
 
 ## Usage example: 
-### newM1 = matrix(c(1,2,3,4),2,2)
-### x = makeCacheMatrix(newM1)
+### a1 = cacheSolve(x)
+###    where x is of 'type' makeCacheMatrix
 ## the invocation takes a matrix (as in a constructor of a class) and the resultant, 
 cacheSolve <- function(x, ...) {
   # try and get the inverse matrix from the cached-matrix
@@ -67,10 +68,11 @@ cacheSolve <- function(x, ...) {
     return(m)
   }
   #inverse was null, so go through steps to calculate it
+  ##first get the matrix data out of the cached-matrix
   data <- x$get()
-  # Perform the inversion calculation using the std solve() method. Note no error handling
+  ## Perform the inversion calculation using the std solve() method. Note no error handling
   m <- solve(data, ...)
-  ## Updated the cached-matrix inverse - otherwise a subsequent call will repeat the Solve()
+  ## Update the cached-matrix inverse - otherwise a subsequent call will repeat the Solve()
   x$setInverse(m)
   ## Return a matrix that is the inverse of 'x'
   m
